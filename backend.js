@@ -78,14 +78,31 @@ app.get("/users/:id", (req, res) => {
 
 function findUserById(id) {
   return users["users_list"].find((user) => user["id"] === id); // or line below
-  //return users['users_list'].filter( (user) => user['id'] === id);
+}
+
+//Id generator
+function GenerateID() {
+  const first = Math.floor(Math.random() * 10).toString();
+  const second = Math.floor(Math.random() * 10).toString();
+  const third = Math.floor(Math.random() * 10).toString();
+  const letters = ["abc", "def", "ghi", "jkl", "mno", "pqr", "stu", "vwx"];
+  const id =
+    letters[Math.floor(Math.random() * 10) % letters.length] +
+    first +
+    second +
+    third;
+  return id;
 }
 
 //Add user
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  userToAdd.id = GenerateID();
   addUser(userToAdd);
-  res.status(200).end();
+  //Send user with new Id to client
+  //console.log(userToAdd);
+  res.send(userToAdd);
+  res.status(201).end();
 });
 
 function addUser(user) {
@@ -96,16 +113,18 @@ function addUser(user) {
 app.delete("/users/:id", (req, res) => {
   const id = req.params["id"]; //or req.params.id
   let result = deleteUserId(id);
+  //console.log(result);
   if (result === undefined || result.length == 0) {
     res.status(404).send("Resource not found.");
   } else {
     result = { users_list: result };
     res.send(result);
+    res.status(202).end();
   }
 });
 
 function deleteUserId(id) {
-  return users.users_list.filter((user) => user.id !== id);
+  return users["users_list"].filter((user) => user["id"] !== id);
 }
 
 app.listen(port, () => {
