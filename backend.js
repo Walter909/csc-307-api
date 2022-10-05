@@ -102,7 +102,7 @@ app.post("/users", (req, res) => {
   //Send user with new Id to client
   //console.log(userToAdd);
   res.send(userToAdd);
-  res.status(201).end();
+  res.status(200).end();
 });
 
 function addUser(user) {
@@ -113,18 +113,21 @@ function addUser(user) {
 app.delete("/users/:id", (req, res) => {
   const id = req.params["id"]; //or req.params.id
   let result = deleteUserId(id);
-  //console.log(result);
   if (result === undefined || result.length == 0) {
     res.status(404).send("Resource not found.");
   } else {
-    result = { users_list: result };
-    res.send(result);
-    res.status(202).end();
+    res.status(204).end();
   }
 });
 
+function findUserIndexById(id) {
+  return users.users_list.findIndex((user) => user["id"] === id);
+}
+
 function deleteUserId(id) {
-  return users["users_list"].filter((user) => user["id"] !== id);
+  index = findUserIndexById(id);
+
+  return users["users_list"].splice(index, 1);
 }
 
 app.listen(port, () => {
