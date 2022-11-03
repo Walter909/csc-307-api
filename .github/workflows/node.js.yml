@@ -22,8 +22,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: "npm"
-
-    - name: Test
     - run: |
         npm install
         npx webpack    
