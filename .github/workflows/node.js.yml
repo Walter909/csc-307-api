@@ -27,7 +27,6 @@ jobs:
     - run: |
         npm install
         npx webpack    
-    - run: npm ci
+           cache: "npm"
     - run: npm run build --if-present
     - run: npm test
-    
