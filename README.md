@@ -1,3 +1,3 @@
 # csc-307-api
 
-https://github.com/github/docs/actions/workflows/main.yml/badge.svg
+https://github.com/Walter909/csc-307-api/actions/workflows/node.js.yml/badge.svg
