@@ -1,3 +1,3 @@
 # csc-307-api
 
-[example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+https://github.com/github/docs/actions/workflows/main.yml/badge.svg
